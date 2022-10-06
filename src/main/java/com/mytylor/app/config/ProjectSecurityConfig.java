@@ -16,8 +16,6 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 @Configuration @RequiredArgsConstructor
 public class ProjectSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    public final SecurityUserImpl securityUserImpl;
-
     @Autowired
     private JWTTokenValidatorFilter jwtFilter;
 
@@ -32,16 +30,10 @@ public class ProjectSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login").permitAll()
                 .antMatchers("/aboutus").authenticated()
                 .antMatchers("/register").permitAll()
-                .anyRequest().authenticated()
                 .and()
                 .httpBasic();
 
     }
-
-//    @Override
-//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.userDetailsService(securityUserImpl).passwordEncoder(passwordEncoder());
-//    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
