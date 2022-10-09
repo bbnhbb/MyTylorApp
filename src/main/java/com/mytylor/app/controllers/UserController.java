@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,8 +43,10 @@ public class UserController {
 //                        .password(passwordEncoder.encode(userCredentialsDto.getPassword()))
 //                        .roles(Set.of("USER"))
 //                        .build();
+
+        
         user1 = userService.registerUser(user1);
-        return ResponseEntity.ok((new HashMap<>()).put("Message", user1.getUsername()));
+        return new ResponseEntity<Object>(user1, HttpStatus.CREATED);
     }
 
     @PostMapping("/login")
@@ -54,9 +57,11 @@ public class UserController {
         Boolean isAuthenticated = userService.loginService(user1);
         if (isAuthenticated) {
             Map<String, Object> map = new HashMap<>();
+            String jwt = jwtUtil.generateToken(user.getUsername());
             map.put("message", "user login");
+            map.put(SecurityConstants.JWT_HEADER, jwt);
             HttpHeaders responseHeaders = new HttpHeaders();
-            responseHeaders.set(SecurityConstants.JWT_HEADER, jwtUtil.generateToken(user.getUsername()));
+            responseHeaders.set(SecurityConstants.JWT_HEADER, jwt);
             return new ResponseEntity<Object>(map, responseHeaders, HttpStatus.OK);
         } else {
             return new ResponseEntity<Object>(HttpStatus.UNAUTHORIZED);
