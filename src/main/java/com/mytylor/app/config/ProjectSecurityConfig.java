@@ -50,6 +50,8 @@ public class ProjectSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/register").permitAll()
                 .antMatchers("/saveCusomers").permitAll()
                 .antMatchers("/saveDresses").permitAll()
+                .antMatchers("/customers").permitAll()
+                .antMatchers("/customersForTylor").permitAll()
                 .and()
                 .httpBasic();
 

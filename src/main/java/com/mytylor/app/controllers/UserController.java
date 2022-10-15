@@ -59,6 +59,11 @@ public class UserController {
             Map<String, Object> map = new HashMap<>();
             String jwt = jwtUtil.generateToken(user.getUsername());
             map.put("message", "user login");
+            User userByName = userService.findUserByName(user1.getUsername());
+            Map<Object, Object> responseUser = new HashMap<>();
+            responseUser.put("username", user1.getUsername());
+            responseUser.put("id", userByName.getId());
+            map.put("user_data", responseUser);
             map.put(SecurityConstants.JWT_HEADER, jwt);
             HttpHeaders responseHeaders = new HttpHeaders();
             responseHeaders.set(SecurityConstants.JWT_HEADER, jwt);

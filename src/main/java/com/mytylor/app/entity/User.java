@@ -1,11 +1,10 @@
 package com.mytylor.app.entity;
 
 import lombok.Data;
+import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.*;
 
 @Entity @Data
 public class User {
@@ -16,5 +15,13 @@ public class User {
     private String username;
 
     private String password;
+
+    @OneToMany(
+            mappedBy = "user",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.REMOVE,
+            targetEntity = Customer.class
+    ) @ToString.Exclude
+    private List<Customer> customerList;
 
 }

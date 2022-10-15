@@ -26,4 +26,9 @@ public class UserService {
 
         return authenticate.isAuthenticated();
     }
+
+    public User findUserByName(String name) {
+        User user = userRepo.findByUsername(name).get(0);
+        return user;
+    }
 }

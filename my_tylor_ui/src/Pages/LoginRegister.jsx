@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {
     MDBContainer,
     MDBTabs,
@@ -15,16 +15,19 @@ import {
 import { postApiService } from '../Services/apiService';
 import { useNavigate } from "react-router-dom";
 import { Alert } from 'react-bootstrap';
+import { Context } from '../Context/Store';
 
 function LoginRegister() {
 
     const [justifyActive, setJustifyActive] = useState('tab1');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [state, dispatch] = useContext(Context);
     let navigate = useNavigate();
     const [loginStatus, setLoginStatus] = useState(null);
     const [registerStatus, setRegisterStatus] = useState(null);
     const [registerUserData, setRegisterUserData] = useState(null);
+    
 
     const handleJustifyClick = (value) => {
         if (value === justifyActive) {
@@ -46,6 +49,8 @@ function LoginRegister() {
         if (response.status === 200) {
             setLoginStatus("loggedin");
             localStorage.setItem("jwt", response.data.Authorization);
+            dispatch({ type: 'ADD_USER', payload: response.data.user_data});
+            dispatch({ type: 'ADD_JWT', payload: response.data.Authorization})
             navigate('/home');
 
         } else if (response.status === 401) {
