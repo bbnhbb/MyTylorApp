@@ -17,3 +17,19 @@ body {
     margin-bottom: 35px;
   }
 }
+
+.dress_component {
+  margin-left: 2vw;
+  margin-top: 3vw;
+  max-width: 450px;
+  max-height: 100vw;
+  // cus: auto;
+
+  .dress_addDress_btn {
+    margin-bottom: 35px;
+  }
+
+  Form {
+    margin-bottom: 35px;
+  }
+}

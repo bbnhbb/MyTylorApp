@@ -72,6 +72,7 @@ public class CustomerService {
                 crd.id = cust.getId();
                 crd.owner = cust.getUser().getUsername();
                 crd.ownerId = cust.getUser().getId();
+                crd.noOfDresses = cust.getDressList().size();
                 all1.add(crd);
             });
             return all1;

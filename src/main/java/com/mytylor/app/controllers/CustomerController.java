@@ -34,8 +34,8 @@ public class CustomerController {
     }
 
     @PostMapping("/customersForTylor")
-    public ResponseEntity<List<CustomerResponseDto>> getCustomers(@RequestBody Map<String, Long> tylorId) {
-        List<CustomerResponseDto> customer = customerService.getCustomersByTylor(tylorId.get("id"));
+    public ResponseEntity<List<CustomerResponseDto>> getCustomers(@RequestBody Map<String, String> tylorId) {
+        List<CustomerResponseDto> customer = customerService.getCustomersByTylor(Long.valueOf(tylorId.get("id")));
         return ResponseEntity.ok(customer);
     }
 }
