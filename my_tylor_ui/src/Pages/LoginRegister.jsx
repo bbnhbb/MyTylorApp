@@ -82,7 +82,6 @@ function LoginRegister() {
             setPassword(registerUserData['password']);
             setJustifyActive('tab1');
             setRegisterStatus("registered successfully");
-            debugger
         } else {
             setRegisterStatus("registration failure");
         }

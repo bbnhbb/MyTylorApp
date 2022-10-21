@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { Alert, Button, Form } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import { Context } from '../Context/Store';
 import { getApiService, postApiService } from '../Services/apiService'
 
@@ -15,6 +16,7 @@ function Customers() {
             message: null
         }
     );
+    let navigate = useNavigate();
 
 
     useEffect(() => {
@@ -57,6 +59,12 @@ function Customers() {
         }
     }
 
+    const showDresses = async (custId) => {
+        debugger
+        navigate(`/dress?customerId=${custId}`);
+    }
+
+
     return (
         <div className='customer_component'>
             {alertData.show && <Alert key={alertData.variant} variant={alertData.variant}>
@@ -80,6 +88,8 @@ function Customers() {
                     <tr>
                         <th scope="col">Id</th>
                         <th scope="col">User Name</th>
+                        <th scope="col">No of Dresses</th>
+                        <th scope="col">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -87,6 +97,12 @@ function Customers() {
                         <tr>
                             <td>{cust['id']}</td>
                             <td>{cust['username']}</td>
+                            <td>{cust['noOfDresses']}</td>
+                            <td>
+                                <Button variant="primary" type="submit" onClick={() => {showDresses(cust['id'])}}>
+                                    Show Dresses
+                                </Button>
+                            </td>
                         </tr>
                     ))}
                 </tbody>

@@ -5,4 +5,5 @@ public class CustomerResponseDto {
     public String username;
     public String owner;
     public Long ownerId;
+    public Integer noOfDresses;
 }
