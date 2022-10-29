@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Form } from 'react-bootstrap';
+import { Alert, Button, Form } from 'react-bootstrap';
 import { useSearchParams } from 'react-router-dom';
 import Navbar from '../Components/Navbar'
 import { postApiService } from '../Services/apiService';
@@ -9,6 +9,11 @@ function Dress() {
   const [searchParams] = useSearchParams();
   const [addDressBtnClicked, setAddCustomerBtnClicked] = React.useState(false);
   const [dressForm, setDressForm] = useState({});
+  const [dressMessage, setdressMessage] = useState({
+    show: false,
+    variant: null,
+    message: null
+  });
 
   useEffect(() => {
     fetchDressList()
@@ -23,29 +28,51 @@ function Dress() {
 
   async function addDressFormChange(event) {
     let _tempDressForm = { [event.currentTarget.placeholder]: event.target.value }
-    setDressForm({ ..._tempDressForm, ...dressForm })
+    setDressForm({...dressForm, ..._tempDressForm })
   }
 
   async function addDressSubmit() {
-
-    console.log(dressForm)
+    let customerId = searchParams.get('customerId');
+    let dress = {
+      "name": dressForm['name'],
+      "customer_id": customerId,
+      "measurements": {
+        "sholder": dressForm['sholder'],
+        "waist": dressForm['waist'],
+        "belly": dressForm['belly'],
+        "arm": dressForm['arm'],
+        "leg": dressForm['leg']
+      }
+    }
+    let data = await postApiService("saveDress", dress);
+    console.log(data)
+    if (data['status'] === 200) {
+      setAddCustomerBtnClicked(!addDressBtnClicked);
+      setdressMessage({ show: true, varient: "success", message: "dress added successfully" });
+      fetchDressList();
+    } else {
+      setdressMessage({ show: true, varient: "failure", message: "dress filed to add, pls try again" });
+    }
   }
 
   return (
     <>
       <Navbar />
       <div className='dress_component'>
-        <Button 
+        {dressMessage.show && <Alert key={dressMessage.message} variant={dressMessage.variant}>
+          {dressMessage.message}
+        </Alert>}
+        <Button
           variant="outline-primary"
           className="dress_addDress_btn"
           onClick={() => { setAddCustomerBtnClicked(!addDressBtnClicked) }}>
-          Add Customer
+          Add Dress
         </Button>
         {addDressBtnClicked &&
           <Form>
             {/* Name */}
             <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Name</Form.Label> 
+              <Form.Label>Name</Form.Label>
               <Form.Control placeholder="name" onBlur={(event) => addDressFormChange(event)} />
             </Form.Group>
 

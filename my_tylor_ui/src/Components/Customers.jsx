@@ -60,7 +60,6 @@ function Customers() {
     }
 
     const showDresses = async (custId) => {
-        debugger
         navigate(`/dress?customerId=${custId}`);
     }
 

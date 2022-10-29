@@ -23,29 +23,33 @@ public class DressService {
     private CustomerRepository customerRepository;
 
     public DressResponseDto createDress(DressRequestDto dress) {
-        Customer customer = customerRepository.findById(dress.customer_id).get();
+        try {
+            Customer customer = customerRepository.findById(dress.customer_id).get();
+            Dress newDress = new Dress();
+            // newDress.setId(dress.id);
+            newDress.setCustomer(customer);
+            newDress.setName(dress.name);
+            DressRequestDto.Measurements measurements = dress.measurements;
+            newDress.setMsrSholder(measurements.sholder);
+            newDress.setMsrArm(measurements.arm);
+            newDress.setMsrBelly(measurements.belly);
+            newDress.setMsrLeg(measurements.leg);
+            newDress.setMsrWaist(measurements.waist);
 
-        Dress newDress = new Dress();
-//        newDress.setId(dress.id);
-        newDress.setCustomer(customer);
-        newDress.setName(dress.name);
-        DressRequestDto.Measurements measurements = dress.measurements;
-        newDress.setMsrSholder(measurements.sholder);
-        newDress.setMsrArm(measurements.arm);
-        newDress.setMsrBelly(measurements.belly);
-        newDress.setMsrLeg(measurements.leg);
-        newDress.setMsrWaist(measurements.waist);
+            //        saving dress
+            Dress saveDress = dressRepository.save(newDress);
 
-        //        saving dress
-        Dress saveDress = dressRepository.save(newDress);
+            // Response in new response formate
+            DressResponseDto dressResponseDto = new DressResponseDto();
+            dressResponseDto.id=  saveDress.getId();
+            dressResponseDto.customer_id = saveDress.getCustomer().getId();
+            dressResponseDto.name = saveDress.getName();
 
-        // Response in new response formate
-        DressResponseDto dressResponseDto = new DressResponseDto();
-        dressResponseDto.id=  saveDress.getId();
-        dressResponseDto.customer_id = saveDress.getCustomer().getId();
-        dressResponseDto.name = saveDress.getName();
-
-        return dressResponseDto;
+            return dressResponseDto;
+        } catch (Exception e) {
+            // Create custom CustomerNotFoundException and throw that exception from here
+            throw e;
+        }
     }
 
     public List<Map<Object, Object>> getDressByCustomer(Long customerId) {
