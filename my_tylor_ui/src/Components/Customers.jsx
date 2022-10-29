@@ -33,7 +33,6 @@ function Customers() {
     }
 
     const addCustomerSubmit = async () => {
-        debugger
         let newUserToCreate = { "username": custusername, "tylor_id": state['userData']['id'] }
         let data = await postApiService("saveCusomers", newUserToCreate);
         if (data.status === 200) {
