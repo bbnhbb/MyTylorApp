@@ -33,7 +33,8 @@ function Customers() {
     }
 
     const addCustomerSubmit = async () => {
-        let newUserToCreate = { "username": custusername, "tylor_id": customerList[0]['ownerId'] }
+        debugger
+        let newUserToCreate = { "username": custusername, "tylor_id": state['userData']['id'] }
         let data = await postApiService("saveCusomers", newUserToCreate);
         if (data.status === 200) {
             setAlertData({
@@ -74,10 +75,10 @@ function Customers() {
                 <Form>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>User Name</Form.Label>
-                        <Form.Control type="email" placeholder="User Name" onChange={(event) => SetCustusername(event.target.value)} />
+                        <Form.Control type="text" placeholder="User Name" onChange={(event) => SetCustusername(event.target.value)} />
                     </Form.Group>
 
-                    <Button variant="primary" type="submit" onClick={addCustomerSubmit}>
+                    <Button variant="primary" onClick={addCustomerSubmit}>
                         Submit
                     </Button>
                 </Form>
