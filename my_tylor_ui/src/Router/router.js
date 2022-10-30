@@ -8,15 +8,15 @@ import LoginRegister from "../Pages/LoginRegister";
 
 export const router = createBrowserRouter([
     {
-        path: "/",
+        path: "/MyTylorApp/",
         element: <LoginRegister />,
     },
     {
-        path: "/home",
+        path: "/MyTylorApp/home",
         element: <Home />,
     },
     {
-        path: "/dress",
+        path: "/MyTylorApp/dress",
         element: <Dress />,
     }
 ]);

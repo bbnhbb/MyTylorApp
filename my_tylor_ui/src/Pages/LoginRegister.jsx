@@ -51,7 +51,7 @@ function LoginRegister() {
             localStorage.setItem("jwt", response.data.Authorization);
             dispatch({ type: 'ADD_USER', payload: response.data.user_data});
             dispatch({ type: 'ADD_JWT', payload: response.data.Authorization})
-            navigate('/home');
+            navigate('/MyTylorApp/home');
 
         } else if (response.status === 401) {
             setLoginStatus("unauthorized")
