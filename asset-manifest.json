@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/MyTylorApp/static/css/main.05b00a8e.css",
-    "main.js": "/MyTylorApp/static/js/main.1ba74e8b.js",
+    "main.js": "/MyTylorApp/static/js/main.d7c3fd5f.js",
     "static/js/787.dbe63784.chunk.js": "/MyTylorApp/static/js/787.dbe63784.chunk.js",
     "static/media/logo.svg": "/MyTylorApp/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
     "index.html": "/MyTylorApp/index.html",
     "main.05b00a8e.css.map": "/MyTylorApp/static/css/main.05b00a8e.css.map",
-    "main.1ba74e8b.js.map": "/MyTylorApp/static/js/main.1ba74e8b.js.map",
+    "main.d7c3fd5f.js.map": "/MyTylorApp/static/js/main.d7c3fd5f.js.map",
     "787.dbe63784.chunk.js.map": "/MyTylorApp/static/js/787.dbe63784.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.05b00a8e.css",
-    "static/js/main.1ba74e8b.js"
+    "static/js/main.d7c3fd5f.js"
   ]
 }
