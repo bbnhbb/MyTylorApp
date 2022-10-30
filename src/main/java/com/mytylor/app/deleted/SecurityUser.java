@@ -1,4 +1,4 @@
-package com.mytylor.app.config;
+package com.mytylor.app.deleted;
 
 import com.mytylor.app.entity.User;
 import org.springframework.security.core.GrantedAuthority;
