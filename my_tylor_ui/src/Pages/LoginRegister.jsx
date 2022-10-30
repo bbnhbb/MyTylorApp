@@ -75,7 +75,6 @@ function LoginRegister() {
             'register',
             registerUserData
         );
-        debugger
 
         if (response.status === 201) {
             setUsername(registerUserData['username']);
