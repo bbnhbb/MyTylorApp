@@ -3,6 +3,7 @@ package com.mytylor.app.config;
 import com.mytylor.app.filters.JWTTokenValidatorFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -22,6 +23,9 @@ import java.util.Collections;
 @Configuration @RequiredArgsConstructor
 public class ProjectSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Value("${spring.profiles.active}")
+    private String env;
+
     @Autowired
     private JWTTokenValidatorFilter jwtFilter;
 
@@ -30,9 +34,17 @@ public class ProjectSecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().configurationSource(new CorsConfigurationSource() {
             @Override
             public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
+//                Check to see which url to all for cros local or prod
+                String crosUrlToAllow = "";
+                if (env == "prod") {
+                    crosUrlToAllow = "https://bbnhbb.github.io";
+                } else {
+                    crosUrlToAllow = "http://localhost:3000";
+                }
+
+//                configs
                 CorsConfiguration config = new CorsConfiguration();
-//                "http://localhost:3000", "https://bbnhbb.github.io/MyTylorApp/"
-                config.setAllowedOrigins(Collections.singletonList("https://bbnhbb.github.io"));
+                config.setAllowedOrigins(Collections.singletonList(crosUrlToAllow));
                 config.setAllowedMethods(Collections.singletonList("*"));
                 config.setAllowCredentials(true);
                 config.setAllowedHeaders(Collections.singletonList("*"));
