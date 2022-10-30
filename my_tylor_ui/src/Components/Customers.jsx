@@ -60,7 +60,7 @@ function Customers() {
     }
 
     const showDresses = async (custId) => {
-        navigate(`/dress?customerId=${custId}`);
+        navigate(`/MyTylorApp/dress?customerId=${custId}`);
     }
 
 

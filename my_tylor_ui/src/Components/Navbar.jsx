@@ -18,7 +18,7 @@ function Navbar() {
 
   const logout = () => {
     localStorage.removeItem("jwt");
-    navigate("/");
+    navigate("/MyTylorApp/");
   }
   
   return (
